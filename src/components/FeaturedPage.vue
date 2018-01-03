@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md>
-    <v-layout v-bind="layoutAsRow ? { row: true, wrap: true } : { column: true }">
+    <v-layout v-bind="$vuetify.breakpoint.smAndUp ? { row: true, wrap: true } : { column: true }">
       <v-flex xs12 sm6 md4 lg3 v-for="thread in gifThreads" :key="thread.id">
         <thread-card :thread="thread"></thread-card>
       </v-flex>
@@ -27,11 +27,6 @@ export default {
       .then(threads => {
         this.gifThreads = threads;
       });
-  },
-  computed: {
-    layoutAsRow() {
-      return this.$vuetify.breakpoint.smAndUp;
-    }
   }
 };
 </script>
