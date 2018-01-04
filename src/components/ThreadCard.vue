@@ -1,7 +1,7 @@
 <template>
   <v-card hover>
     <v-card-media height="280px" class="pa-2">
-      <video :src="thread.url" width="auto" height="100%" autoplay loop></video>
+      <video :src="thread.url" width="auto" height="100%" autoplay loop playsinline muted></video>
     </v-card-media>
     <v-card-title>
       <span :class="['title', 'mb-2', 'mx-1', {'trunc-text': !show} ]">{{ thread.title }}</span>
