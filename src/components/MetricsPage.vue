@@ -18,14 +18,7 @@
       width="90%" height="auto">
       <div v-if="modalSolutionThread" :class="$vuetify.breakpoint.smAndUp ? 'pa-4' : 'pa-2'">
         <div style="text-align: center;">
-          <div v-show="modalSolutionIsLoading" class="pa-4" style="min-height: 60vh;">
-            Loading Solution...
-            <v-progress-circular indeterminate :size="50" :width="3" color="primary" 
-              class="mt-2" style="display: block; margin: auto;"></v-progress-circular>
-          </div>
-          <video :src="modalSolutionThread.url" autoplay loop v-show="!modalSolutionIsLoading"
-            @loadstart="modalSolutionIsLoading = true" @canplay="modalSolutionIsLoading = false"
-            width="100%" style="max-height: 60vh"></video>
+          <solution-video :src="modalSolutionThread.url" width="100%" videoStyle="max-height: 60vh"></solution-video>
         </div>
         <div class="mt-4">
           <span class="title mb-2 mx-1">{{ modalSolutionThread.title }}</span>
@@ -46,12 +39,14 @@
 
 <script>
 import MetricsCard from "./MetricsCard.vue";
+import SolutionVideo from "./SolutionVideo.vue";
+
 import utils from "../utils";
 import moment from "moment";
 
 export default {
   name: "metrics-page",
-  components: { MetricsCard },
+  components: { MetricsCard, SolutionVideo },
   data() {
     return {
       numThreadsToLoad: 100,
