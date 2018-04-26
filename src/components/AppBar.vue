@@ -11,9 +11,6 @@
           <v-list-tile @click="visitSubreddit()">
             <v-list-tile-title>Subreddit</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile @click="visitOfficialWebsite()">
-            <v-list-tile-title>Website</v-list-tile-title>
-          </v-list-tile>
           <v-list-tile @click="visitSteamStore()">
             <v-list-tile-title>Steam Store</v-list-tile-title>
           </v-list-tile>
@@ -24,10 +21,6 @@
       <v-btn @click="visitSubreddit()">
         Subreddit
         <v-icon right>question_answer</v-icon>
-      </v-btn>
-      <v-btn @click="visitOfficialWebsite()">
-        Game Website
-        <v-icon right>videogame_asset</v-icon>
       </v-btn>
       <v-btn @click="visitSteamStore()">
         Steam Store
@@ -48,9 +41,6 @@ export default {
   methods: {
     visitSubreddit: function() {
       openUrl("https://reddit.com/r/opus_magnum");
-    },
-    visitOfficialWebsite: function() {
-      openUrl("https://www.zachtronics.com/opus-magnum/");
     },
     visitSteamStore: function() {
       openUrl("https://store.steampowered.com/app/558990/Opus_Magnum/");

@@ -1,6 +1,6 @@
 <template>
   <v-card hover>
-    <v-card-media height="280px" class="pa-2">
+    <v-card-media class="pt-2 pb-2">
       <solution-video :src="thread.url" width="auto" height="100%"></solution-video>
     </v-card-media>
     <v-card-title>

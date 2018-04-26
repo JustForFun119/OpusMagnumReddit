@@ -1,16 +1,14 @@
 <template>
-  <v-card height="200px">
-    <v-bottom-nav :value="true" :active.sync="selectedTab" color="white" fixed>
-      <v-btn flat color="teal" @click="goToPage('/featured')">
-        <span>Featured</span>
-        <v-icon>star</v-icon>
-      </v-btn>
-      <v-btn flat color="teal" @click="goToPage('/metrics')">
-        <span>Metrics</span>
-        <v-icon>assessment</v-icon>
-      </v-btn>
-    </v-bottom-nav>
-  </v-card>
+  <v-bottom-nav :value="true" :active.sync="selectedTab" color="white" class="pos-fixed">
+    <v-btn flat color="teal" @click="goToPage('/featured')">
+      <span>Featured</span>
+      <v-icon>star</v-icon>
+    </v-btn>
+    <v-btn flat color="teal" @click="goToPage('/metrics')">
+      <span>Metrics</span>
+      <v-icon>assessment</v-icon>
+    </v-btn>
+  </v-bottom-nav>
 </template>
 
 <script>
@@ -33,5 +31,7 @@ export default {
 </script>
 
 <style>
-
+.pos-fixed {
+  position: fixed;
+}
 </style>

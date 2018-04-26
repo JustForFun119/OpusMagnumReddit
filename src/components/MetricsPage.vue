@@ -15,12 +15,12 @@
       </v-flex>
     </v-layout>
     <modal name="solution-modal" v-show="modalSolutionThread" v-model="modalSolutionThread"
-      width="90%" height="auto">
+      width="95%" height="auto">
       <div v-if="modalSolutionThread" :class="$vuetify.breakpoint.smAndUp ? 'pa-4' : 'pa-2'">
         <div style="text-align: center;">
           <solution-video :src="modalSolutionThread.url" width="100%" videoStyle="max-height: 60vh"></solution-video>
         </div>
-        <div class="mt-4">
+        <div class="mt-2">
           <span class="title mb-2 mx-1">{{ modalSolutionThread.title }}</span>
           <span class="subheading mx-1" :style="$vuetify.breakpoint.smAndUp ? {display: 'inline'} : {display: 'block'}">
             by {{ modalSolutionThread.author }}</span>

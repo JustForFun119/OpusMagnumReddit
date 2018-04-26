@@ -1,13 +1,14 @@
 <template>
   <div class="solution-video-container">
-    <div v-show="!loaded" class="pa-4">
+    <div v-show="!loaded" class="pa-4" :style="videoStyle || null">
       Loading Solution...
       <v-progress-circular indeterminate :size="50" :width="3" color="primary" 
         class="mt-2" style="display: block; margin: auto;"></v-progress-circular>
     </div>
-    <video :src="src" autoplay loop playsinline muted
+    <video autoplay loop playsinline muted
       :width="width" :height="height" :style="videoStyle || null"
       v-show="loaded" @loadstart="loaded = false" @canplay="loaded = true">
+      <source :src="src" type="video/mp4">
     </video>
   </div>
 </template>
@@ -23,6 +24,7 @@ export default {
 <style>
 .solution-video-container {
   width: 100%;
+  height: 280px;
   text-align: center;
   display: flex;
   align-items: center;

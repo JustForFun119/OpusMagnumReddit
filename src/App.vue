@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <app-bar></app-bar>
-      <v-content>
+      <v-content class="fit-height">
         <router-view>
           <v-container></v-container>
         </router-view>
@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style>
-
+.fit-height {
+  max-height: 100vh;
+}
 </style>
