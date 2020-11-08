@@ -3,7 +3,8 @@ function getGifThreads(dataJson) {
     if (dataJson.kind === "Listing") {
         const threads = dataJson.data.children;
         for (let thread of threads) {
-            if (isThreadGif(thread.data) && thread.data.preview) {
+            const animationMediaURL = getThreadAnimMediaURL(thread.data);
+            if (animationMediaURL != null) {
                 gifThreads.push({
                     kind: getKindName(thread.kind),
                     id: thread.data.id,
@@ -11,10 +12,7 @@ function getGifThreads(dataJson) {
                     created_utc: thread.data.created_utc,
                     title: thread.data.title,
                     permalink: thread.data.permalink,
-                    url: thread.data.preview.images[0].variants.mp4.source.url,
-                    ups: thread.data.ups,
-                    downs: thread.data.downs,
-                    preview: thread.data.preview.images[0].source.url
+                    url: animationMediaURL
                 });
             }
             if (gifThreads.length >= 20) break;
@@ -23,29 +21,33 @@ function getGifThreads(dataJson) {
     }
     return null;
 
-    function isThreadGif(threadData) {
-        // parse thread URL to find GIF animation/video links...
+    function getThreadAnimMediaURL(threadData) {
+        // Parse thread URL to find GIF animation/video links...
+        // GIF from i.redd.it
         if (threadData.url.match(/https\:\/\/i\.redd\.it\/([\w]+)\.gif/)) {
             // Reddit GIF link
             // console.log("%s is Reddit link", threadData.url);
-            return true;
+            return threadData.preview.images[0].variants.mp4.source.url;
+        } else if (threadData.domain === "v.redd.it") { // video from v.redd.it
+            // console.log("v.redd.it video", threadData.secure_media.reddit_video.fallback_url);
+            return threadData.secure_media.reddit_video.fallback_url;
         } else {
+            // GIF/GIFV from Imgur
             const imgurMatch = threadData.url.match(/https\:\/\/i\.imgur\.com\/([\w]+)\.gifv?/);
             if (imgurMatch) {
                 // Imgur GIF link
-                // note: ignore GIFV link since it's video instead of image (need to be embedded)
-                if (threadData.url.endsWith(".gifv")) return false;
+                if (threadData.url.endsWith(".gifv")) return threadData.url;
                 // console.log("%s is Imgur link", threadData.url);
-                return true;
+                return threadData.preview.images[0].variants.mp4.source.url;
             }
         }
         // test for Gfycat link TODO: find a way to embed Gfycat iframe video
         // else if (threadUrl.match(/https\:\/\/gfycat\.com\/\//)) {
         //     // Gfycat link
         //     console.log("%s is Gfycat link", threadUrl);
-        //     return true;
+        //     return null;
         // }
-        return false;
+        return null;
     }
 
     function getKindName(kind) {
@@ -61,9 +63,10 @@ function getGifThreads(dataJson) {
 }
 exports.getGifThreads = getGifThreads;
 
+const corsProxyURL = "https://cors-anywhere.herokuapp.com/"; // added for FireFox-Reddit CORS
 const redditApiEndpoint = "https://www.reddit.com/r/opus_magnum.json";
 function fetchRedditJson(paramAfter) {
-    let apiRequestUrl = redditApiEndpoint;
+    let apiRequestUrl = `${corsProxyURL}${redditApiEndpoint}`;
     apiRequestUrl += '?raw_json=1'; // ask for unescaped response string i.e. '&' instead of '&amp;'
     // add 'after' parameter to API request URL if any
     if (paramAfter) apiRequestUrl += `&after=${paramAfter}`;
