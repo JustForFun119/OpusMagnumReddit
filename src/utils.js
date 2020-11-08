@@ -66,7 +66,9 @@ exports.getGifThreads = getGifThreads;
 const corsProxyURL = "https://cors-anywhere.herokuapp.com/"; // added for FireFox-Reddit CORS
 const redditApiEndpoint = "https://www.reddit.com/r/opus_magnum.json";
 function fetchRedditJson(paramAfter) {
-    let apiRequestUrl = `${corsProxyURL}${redditApiEndpoint}`;
+    let apiRequestUrl = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+        ? `${corsProxyURL}${redditApiEndpoint}`
+        : redditApiEndpoint;
     apiRequestUrl += '?raw_json=1'; // ask for unescaped response string i.e. '&' instead of '&amp;'
     // add 'after' parameter to API request URL if any
     if (paramAfter) apiRequestUrl += `&after=${paramAfter}`;
