@@ -1,15 +1,15 @@
 <template>
   <v-card hover>
     <v-card-media class="pt-2 pb-2">
-      <solution-video :src="thread.url" width="auto" height="100%"></solution-video>
+      <solution-video :src="post.url" width="auto" height="100%"></solution-video>
     </v-card-media>
     <v-card-title>
-      <span :class="['title', 'mb-2', 'mx-1', {'trunc-text': !show} ]">{{ thread.title }}</span>
-      <span class="subheading mx-1">by {{ thread.author }}</span>
-      <span class="body-1 mx-1">{{ threadCreatedTime }}</span>
+      <span :class="['title', 'mb-2', 'mx-1', {'trunc-text': !show} ]">{{ post.title }}</span>
+      <span class="subheading mx-1">by {{ post.author }}</span>
+      <span class="body-1 mx-1">{{ postCreatedTime }}</span>
     </v-card-title>
     <v-card-actions>
-      <v-btn flat @click="visitThread(thread.permalink)" color="primary">View on Reddit</v-btn>
+      <v-btn flat @click="visitPost(post.permalink)" color="primary">View on Reddit</v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="show = !show">
         <v-icon>{{ show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
@@ -24,19 +24,19 @@ import utils from "../utils";
 import moment from "moment";
 
 export default {
-  name: "thread-card",
-  props: ["thread"],
+  name: "solution-card",
+  props: ["post"],
   components: { SolutionVideo },
   data() {
     return { show: false };
   },
   computed: {
-    threadCreatedTime() {
-      return moment.unix(this.thread.created_utc).fromNow();
+    postCreatedTime() {
+      return moment.unix(this.post.created_utc).fromNow();
     }
   },
   methods: {
-    visitThread(url) {
+    visitPost(url) {
       const tab = window.open("https://reddit.com" + url, "_blank");
       tab.focus();
     }

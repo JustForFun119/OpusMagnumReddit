@@ -42,11 +42,11 @@
     </v-card-actions>
     <v-slide-y-transition>
       <v-card-text v-show="cardShowMore">
-        <!-- list of solutions metrics from reddit threads -->
+        <!-- list of solutions metrics from reddit posts -->
         <v-list>
           <v-list-tile v-for="(solution, index) in sortSolutionsByMetric(solutions)" :key="index">
               <v-list-tile-content>
-                <span class="title">{{ getMetricForList(solution) }}</span> by {{ solution.thread.author }}
+                <span class="title">{{ getMetricForList(solution) }}</span> by {{ solution.post.author }}
               </v-list-tile-content>
               <v-list-tile-action>
                 <!-- action to view solution in popup modal -->
