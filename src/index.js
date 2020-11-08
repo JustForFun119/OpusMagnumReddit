@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 import VModal from 'vue-js-modal';
+import 'vuetify/dist/vuetify.min.css';
 
 import App from './App.vue';
 import FeaturedPage from './components/FeaturedPage.vue';
